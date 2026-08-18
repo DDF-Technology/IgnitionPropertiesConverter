@@ -14,6 +14,12 @@ duplicati, righe commentate e codifica possono avere significati specifici nel s
 I commenti e la formattazione originale non vengono conservati. Le formule Excel vengono rifiutate,
 mentre i valori `.properties` che iniziano con `=` rimangono testo letterale.
 
+## Download
+
+La pre-release Windows portable è disponibile nella pagina
+[v1.0.0-rc2](https://github.com/DDF-Technology/IgnitionPropertiesConverter/releases/tag/v1.0.0-rc2).
+Il pacchetto non è firmato: verificare il file `.sha256` pubblicato insieme allo ZIP prima dell'avvio.
+
 ## Requisiti e avvio
 
 - Python 3.10 o successivo;
