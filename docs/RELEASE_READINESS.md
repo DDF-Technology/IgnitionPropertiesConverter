@@ -16,11 +16,13 @@ Ultimo aggiornamento: 2026-08-15.
 - candidato `1.0.0-rc2-win-x64-unsigned` rigenerato, inventario verificato e GUI avviata dal
   pacchetto finale;
 - SHA-256 candidato: `dbefce0a1851e3b503f102f353f861e8bcd824dbbab8df741dd90391e7df08fc`.
+- repository sorgente pubblicato sotto MIT:
+  <https://github.com/DDF-Technology/IgnitionPropertiesConverter>;
+- pre-release `v1.0.0-rc2` pubblicata con pacchetto e checksum:
+  <https://github.com/DDF-Technology/IgnitionPropertiesConverter/releases/tag/v1.0.0-rc2>;
+- digest SHA-256 remoto verificato e identico al file locale.
 
-## Gate prima della pubblicazione
+## Attività successive
 
-- la pre-release può essere pubblicata senza firma con avvertenza e checksum; la firma resta prevista
-  per eventuali release stabili future;
-- approvazione esplicita del proprietario ricevuta il 2026-08-18;
-- revisione della visibilità del repository e pubblicazione della release;
+- valutare la firma Authenticode per eventuali release stabili future;
 - inserimento nelle sezioni Portfolio e Download del sito.
