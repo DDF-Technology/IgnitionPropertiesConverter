@@ -11,6 +11,8 @@ Utility desktop per gestire file di localizzazione Java/Ignition. Converte uno o
 
 Conservare una copia degli originali e controllare l'output prima dell'importazione: escaping,
 duplicati, righe commentate e codifica possono avere significati specifici nel sistema sorgente.
+I commenti e la formattazione originale non vengono conservati. Le formule Excel vengono rifiutate,
+mentre i valori `.properties` che iniziano con `=` rimangono testo letterale.
 
 ## Requisiti e avvio
 
@@ -31,9 +33,29 @@ python -m venv .venv
 - `converter.py`: lettura, trasformazione e scrittura dei formati;
 - `main.spec`: configurazione storica PyInstaller.
 
-L'eseguibile storico in `dist` è conservato localmente ma escluso dal repository.
+## Test e pacchetto Windows
+
+Le dipendenze di sviluppo sono separate da quelle runtime. Per il pacchetto Windows verificato usare Python 3.14 con il componente Tcl/Tk installato:
+
+```powershell
+.\.venv\Scripts\python -m pip install -r requirements-dev.txt
+.\.venv\Scripts\python -m unittest discover -s tests -v
+powershell -ExecutionPolicy Bypass -File .\scripts\Build-Release.ps1
+```
+
+Lo script esegue i test prima di creare un candidato locale in `artifacts\release`, completo di
+eseguibile, esempi, documentazione, licenze, inventario e checksum SHA-256. Gli artefatti generati
+restano locali ed esclusi dal repository sorgente.
+
+La guida per l'utente è disponibile in [docs/public/USER_GUIDE.md](docs/public/USER_GUIDE.md) e lo
+stato dei gate precedenti alla pubblicazione in [docs/RELEASE_READINESS.md](docs/RELEASE_READINESS.md).
 
 ## Proprietà e licenza
 
-Copyright © 2026 Fabio De Deo — [www.ddf.technology](https://www.ddf.technology/). Tutti i
-diritti riservati. Consultare [LICENSE](LICENSE).
+Il progetto è distribuito gratuitamente e integralmente sotto [licenza MIT](LICENSE) alla comunità
+degli sviluppatori SCADA Ignition. Le dipendenze mantengono le licenze dei rispettivi titolari,
+riepilogate in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Vedere anche
+[PUBLICATION_PLAN.md](PUBLICATION_PLAN.md).
+
+Ignition è un marchio di Inductive Automation. Questo progetto indipendente non è affiliato,
+approvato o sponsorizzato da Inductive Automation.

@@ -1,11 +1,16 @@
 # -*- mode: python ; coding: utf-8 -*-
 
+from PyInstaller.utils.hooks import collect_data_files
+
+
+ttkbootstrap_data = collect_data_files('ttkbootstrap')
+
 
 a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[],
-    datas=[('Icon.ico', '.')],
+    datas=[('Icon.ico', '.'), *ttkbootstrap_data],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -22,7 +27,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='main',
+    name='IgnitionPropertiesConverter',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
