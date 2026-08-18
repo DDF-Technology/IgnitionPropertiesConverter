@@ -1,8 +1,7 @@
 # Importa ttkbootstrap per uno stile moderno e temi per Tkinter
 import ttkbootstrap as tb
-# Importa Tkinter e moduli per dialoghi e widget avanzati
-import tkinter as tk
-from tkinter import filedialog, messagebox, ttk
+# Importa i dialoghi nativi di Tkinter
+from tkinter import filedialog, messagebox
 # Importa funzioni di conversione personalizzate da modulo esterno
 from converter import export_to_excel, import_from_excel
 # Operazioni su file e percorsi
@@ -25,60 +24,78 @@ class PropertiesConverterApp:
         self.master = master
 
         # Titolo della finestra principale
-        master.title("Properties <-> Excel Converter")
+        master.title("Ignition Properties Converter")
 
         # Imposta icona personalizzata della finestra
         master.iconbitmap(resource_path("Icon.ico"))
 
-        # Disabilita il ridimensionamento della finestra
+        # Mantiene una composizione compatta e prevedibile per l'utility.
         master.resizable(False, False)
 
         # Dimensioni e centratura finestra sullo schermo
         master.update_idletasks()
-        width, height = 350, 185
+        width, height = 560, 430
         x = (master.winfo_screenwidth() // 2) - (width // 2)
         y = (master.winfo_screenheight() // 2) - (height // 2)
         master.geometry(f"{width}x{height}+{x}+{y}")
 
-        # Definisce uno stile personalizzato per i pulsanti (font e padding)
-        large_font = ("Helvetica", 10, "bold")
-        master.style.configure('Large.TButton', font=large_font, padding=10)
+        master.style.configure("Title.TLabel", font=("Segoe UI", 20, "bold"))
+        master.style.configure("Subtitle.TLabel", font=("Segoe UI", 10))
+        master.style.configure("Large.TButton", font=("Segoe UI", 11, "bold"), padding=(16, 12))
+        master.style.configure("Footer.TLabel", font=("Segoe UI", 9))
+
+        container = tb.Frame(master, padding=(28, 22))
+        container.pack(fill="both", expand=True)
+
+        tb.Label(container,
+                 text="Ignition Properties Converter",
+                 style="Title.TLabel").pack(anchor="w")
+        tb.Label(container,
+                 text="Converte localizzazioni .properties in Excel e le rigenera dopo la revisione.",
+                 style="Subtitle.TLabel",
+                 bootstyle="secondary").pack(anchor="w", pady=(2, 20))
 
         # Pulsante per conversione da .properties a Excel
-        self.to_excel_btn = tb.Button(master,
-                                      text="Da .properties a Excel",
+        self.to_excel_btn = tb.Button(container,
+                                      text=".properties  →  Excel",
                                       command=self.convert_to_excel,
-                                      bootstyle="dark",
-                                      width=30,
+                                      bootstyle="primary",
                                       style='Large.TButton')
-        self.to_excel_btn.pack(fill='x', padx=10, pady=15)
+        self.to_excel_btn.pack(fill='x')
+        tb.Label(container,
+                 text="Unisce più lingue in un unico workbook modificabile.",
+                 style="Subtitle.TLabel",
+                 bootstyle="secondary").pack(anchor="w", pady=(5, 14))
 
         # Pulsante per conversione da Excel a .properties
-        self.to_properties_btn = tb.Button(master,
-                                           text="Da Excel a .properties",
+        self.to_properties_btn = tb.Button(container,
+                                           text="Excel  →  .properties",
                                            command=self.convert_to_properties,
-                                           bootstyle="dark",
-                                           width=30,
+                                           bootstyle="outline-primary",
                                            style='Large.TButton')
-        self.to_properties_btn.pack(fill='x', padx=10, pady=0)
+        self.to_properties_btn.pack(fill='x')
+        tb.Label(container,
+                 text="Crea un file UTF-8 per ogni colonna lingua.",
+                 style="Subtitle.TLabel",
+                 bootstyle="secondary").pack(anchor="w", pady=(5, 14))
 
         # Barra di progresso sempre visibile, inizialmente vuota e in modalità determinate
-        self.progress = ttk.Progressbar(master,
-                                        mode="determinate",
-                                        bootstyle="info-striped")
-        self.progress.pack(after=self.to_properties_btn, fill='x', padx=10, pady=(10, 0))
+        self.progress = tb.Progressbar(container,
+                                       mode="determinate",
+                                       bootstyle="info-striped")
+        self.progress.pack(fill='x')
         self.progress['value'] = 0  # barra vuota all’avvio
 
         # Separatore orizzontale tra pulsanti e label informativa
-        separator = tb.Separator(master, orient='horizontal')
-        separator.pack(fill='x', padx=10, pady=(10, 0))
+        separator = tb.Separator(container, orient='horizontal')
+        separator.pack(fill='x', pady=(18, 10))
 
         # Etichetta con informazioni sull'autore e sito web
-        self.label = tk.Label(master,
-                              text="Developed by Fabio De Deo - www.ddf.technology",
-                              fg="white", bg="#2e2e2e",
-                              font=("Segoe UI", 10))
-        self.label.pack(pady=10)
+        self.label = tb.Label(container,
+                              text="Fabio De Deo · DDF Technology · MIT License",
+                              style="Footer.TLabel",
+                              bootstyle="secondary")
+        self.label.pack(anchor="center")
 
     def convert_to_excel(self):
         """Converti uno o più file .properties selezionati in un file Excel."""
